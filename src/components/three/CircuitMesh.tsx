@@ -15,9 +15,17 @@ const CircuitMesh = ({ mousePosition = { x: 0, y: 0 } }: CircuitMeshProps) => {
   const nodesRef = useRef<THREE.Group>(null)
   const { viewport } = useThree()
 
+  // Define the node type
+  interface CircuitNode {
+    position: [number, number, number]
+    connections: number[]
+    isAINode: boolean
+    pulseOffset: number
+  }
+
   // Generate circuit nodes with AI-themed positioning
   const nodes = useMemo(() => {
-    const nodeArray = []
+    const nodeArray: CircuitNode[] = []
     const gridSize = 8
     
     for (let i = 0; i < gridSize; i++) {

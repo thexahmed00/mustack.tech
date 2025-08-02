@@ -14,9 +14,15 @@ const NeuralGrid = ({ count = 50, spread = 20 }: NeuralGridProps) => {
   const groupRef = useRef<THREE.Group>(null)
   const linesRef = useRef<THREE.Group>(null)
 
+  // Define the node type
+  interface NeuralNode {
+    position: [number, number, number]
+    connections: number[]
+  }
+
   // Generate neural network nodes
   const nodes = useMemo(() => {
-    const nodeArray = []
+    const nodeArray: NeuralNode[] = []
     for (let i = 0; i < count; i++) {
       nodeArray.push({
         position: [
@@ -50,7 +56,7 @@ const NeuralGrid = ({ count = 50, spread = 20 }: NeuralGridProps) => {
   // Generate connection lines
   const lines = useMemo(() => {
     const lineArray: { start: [number, number, number]; end: [number, number, number] }[] = []
-    nodes.forEach((node, i) => {
+    nodes.forEach((node) => {
       node.connections.forEach((connectionIndex) => {
         if (connectionIndex < nodes.length) {
           lineArray.push({
