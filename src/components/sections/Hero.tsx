@@ -56,12 +56,13 @@ const Hero = () => {
         </motion.div>
 
         {/* Main Headline with Typewriter Effect */}
-        <div className="mb-8">
-          <h1 className="text-hero font-display font-bold leading-none">
+        <div className="mb-6">
+          <h1 className="text-hero font-display font-bold leading-none"style={{fontSize:'4.5rem'}}>
             <TypewriterText
-              text="Revolutionize Your Tech Stack With AI"
+            
+              text="Future-Proof Software. Built Just for You"
               delay={1000}
-              speed={80}
+              speed={70}
               onComplete={() => setShowSubheading(true)}
             />
           </h1>

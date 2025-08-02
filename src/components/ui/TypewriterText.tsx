@@ -44,9 +44,19 @@ const TypewriterText = ({
     }
   }, [currentIndex, text, speed, isStarted, onComplete])
 
+  // Convert \n to line breaks for display
+  const formatText = (text: string) => {
+    return text.split('.').map((line, index, array) => (
+      <span key={index}>
+        {line}
+        {index < array.length - 1 && <br />}
+      </span>
+    ))
+  }
+
   return (
     <span className={className}>
-      {displayText}
+      {formatText(displayText)}
       <span className="animate-pulse">|</span>
     </span>
   )

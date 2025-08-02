@@ -6,7 +6,7 @@ import { motion } from 'framer-motion'
 import dynamic from 'next/dynamic'
 import AnimatedText, { AnimatedTextSplit } from '@/components/ui/AnimatedText'
 
-const SciFiBrain = dynamic(() => import('@/components/three/SciFiBrain'), {
+const ParticleWaveSystem = dynamic(() => import('@/components/three/ParticleWaveSystem'), {
   ssr: false,
 })
 
@@ -111,7 +111,7 @@ const About = () => {
             </motion.div>
           </motion.div>
 
-          {/* 3D Silicon Chip */}
+          {/* 3D Particle Wave System */}
           <motion.div
             initial={{ opacity: 0, x: 50 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -128,9 +128,9 @@ const About = () => {
                 camera={{ position: [0, 0, 5], fov: 50 }}
                 className="three-canvas interactive"
               >
-                <ambientLight intensity={0.5} />
-                <pointLight position={[10, 10, 10]} intensity={0.8} />
-                <SciFiBrain />
+                <ambientLight intensity={1} />
+                <pointLight position={[20, 20, 20]} intensity={-2} />
+                <ParticleWaveSystem />
               </Canvas>
             </Suspense>
 
