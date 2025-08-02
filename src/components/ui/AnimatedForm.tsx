@@ -16,9 +16,10 @@ interface AnimatedFormProps {
   onSubmit: (data: Record<string, string>) => void
   onTyping?: (isTyping: boolean) => void
   className?: string
+  darkTheme?: boolean
 }
 
-const AnimatedForm = ({ fields, onSubmit, onTyping, className = '' }: AnimatedFormProps) => {
+const AnimatedForm = ({ fields, onSubmit, onTyping, className = '', darkTheme = false }: AnimatedFormProps) => {
   const [formData, setFormData] = useState<Record<string, string>>({})
   const [focusedField, setFocusedField] = useState<string | null>(null)
   const [errors, setErrors] = useState<Record<string, string>>({})
@@ -106,7 +107,7 @@ const AnimatedForm = ({ fields, onSubmit, onTyping, className = '' }: AnimatedFo
           animate={{
             y: isActive ? -25 : 0,
             scale: isActive ? 0.85 : 1,
-            color: hasError ? '#ef4444' : (isActive ? '#000000' : '#666666')
+            color: hasError ? '#ef4444' : (isActive ? (darkTheme ? '#ffffff' : '#000000') : (darkTheme ? '#999999' : '#666666'))
           }}
           transition={{ duration: 0.2 }}
           className="absolute left-6 top-4 pointer-events-none origin-left font-display"
@@ -124,10 +125,12 @@ const AnimatedForm = ({ fields, onSubmit, onTyping, className = '' }: AnimatedFo
             onBlur={handleBlur}
             rows={field.rows || 4}
             className={`w-full px-6 py-4 bg-transparent border-2 transition-all duration-300 resize-none font-sans ${
-              hasError 
-                ? 'border-red-500 focus:border-red-500' 
-                : 'border-black/20 focus:border-black'
-            } text-black placeholder-transparent focus:outline-none`}
+              hasError
+                ? 'border-red-500 focus:border-red-500'
+                : darkTheme
+                  ? 'border-white/20 focus:border-white text-white placeholder-transparent'
+                  : 'border-black/20 focus:border-black text-black placeholder-transparent'
+            } focus:outline-none`}
             required={field.required}
           />
         ) : (
@@ -139,10 +142,12 @@ const AnimatedForm = ({ fields, onSubmit, onTyping, className = '' }: AnimatedFo
             onFocus={() => handleFocus(field.name)}
             onBlur={handleBlur}
             className={`w-full px-6 py-4 bg-transparent border-2 transition-all duration-300 font-sans ${
-              hasError 
-                ? 'border-red-500 focus:border-red-500' 
-                : 'border-black/20 focus:border-black'
-            } text-black placeholder-transparent focus:outline-none`}
+              hasError
+                ? 'border-red-500 focus:border-red-500'
+                : darkTheme
+                  ? 'border-white/20 focus:border-white text-white placeholder-transparent'
+                  : 'border-black/20 focus:border-black text-black placeholder-transparent'
+            } focus:outline-none`}
             required={field.required}
           />
         )}
@@ -151,8 +156,10 @@ const AnimatedForm = ({ fields, onSubmit, onTyping, className = '' }: AnimatedFo
         <motion.div
           className="absolute inset-0 pointer-events-none"
           animate={{
-            boxShadow: focusedField === field.name 
-              ? '0 0 0 3px rgba(0, 0, 0, 0.1)' 
+            boxShadow: focusedField === field.name
+              ? darkTheme
+                ? '0 0 0 3px rgba(255, 255, 255, 0.1)'
+                : '0 0 0 3px rgba(0, 0, 0, 0.1)'
               : '0 0 0 0px rgba(0, 0, 0, 0)'
           }}
           transition={{ duration: 0.2 }}
@@ -183,23 +190,27 @@ const AnimatedForm = ({ fields, onSubmit, onTyping, className = '' }: AnimatedFo
       <motion.button
         type="submit"
         disabled={isSubmitting}
-        className="btn-secondary group relative overflow-hidden disabled:opacity-50 disabled:cursor-not-allowed"
+        className={`group relative overflow-hidden disabled:opacity-50 disabled:cursor-not-allowed px-8 py-4 border-2 transition-all duration-300 font-display text-sm uppercase tracking-wider ${
+          darkTheme
+            ? 'border-white text-white hover:bg-white hover:text-black'
+            : 'border-black text-black hover:bg-black hover:text-white'
+        }`}
         whileHover={{ scale: isSubmitting ? 1 : 1.05 }}
         whileTap={{ scale: isSubmitting ? 1 : 0.95 }}
       >
         <span className="relative z-10 font-display">
           {isSubmitting ? 'SENDING...' : 'GET IN TOUCH'}
         </span>
-        
+
         {/* Animated background */}
         <motion.div
-          className="absolute inset-0 bg-black"
+          className={`absolute inset-0 ${darkTheme ? 'bg-white' : 'bg-black'}`}
           initial={{ scaleX: 0 }}
           animate={{ scaleX: isSubmitting ? 1 : 0 }}
           transition={{ duration: 0.3 }}
           style={{ originX: 0 }}
         />
-        
+
         {/* Loading indicator */}
         <AnimatePresence>
           {isSubmitting && (
@@ -209,7 +220,9 @@ const AnimatedForm = ({ fields, onSubmit, onTyping, className = '' }: AnimatedFo
               exit={{ opacity: 0 }}
               className="absolute right-4 top-1/2 transform -translate-y-1/2"
             >
-              <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
+              <div className={`w-4 h-4 border-2 border-t-transparent rounded-full animate-spin ${
+                darkTheme ? 'border-black' : 'border-white'
+              }`} />
             </motion.div>
           )}
         </AnimatePresence>
