@@ -92,11 +92,12 @@ body {
 
 /* Component Styles */
 .btn-primary {
-  @apply inline-flex items-center justify-center px-8 py-4 text-sm font-normal uppercase tracking-wider;
+  @apply inline-flex items-center justify-center px-6 sm:px-8 py-3 sm:py-4 text-xs sm:text-sm font-normal uppercase tracking-wider;
   @apply border-2 border-white bg-transparent text-white;
   @apply transition-all duration-300 ease-out;
   @apply hover:bg-white hover:text-black;
   @apply focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-black;
+  @apply min-h-[44px]; /* Minimum touch target size for mobile */
   font-family: var(--font-bitcount);
 }
 
@@ -131,11 +132,11 @@ body {
 
 /* Section Spacing */
 .section-padding {
-  @apply py-20 lg:py-32;
+  @apply py-12 sm:py-16 md:py-20 lg:py-32;
 }
 
 .container-custom {
-  @apply max-w-7xl mx-auto px-6 lg:px-8;
+  @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
 }
 
 /* Glow Effects */
