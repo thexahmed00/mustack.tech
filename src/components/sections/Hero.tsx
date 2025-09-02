@@ -21,7 +21,7 @@ const Hero = () => {
   const [showCTAs, setShowCTAs] = useState(false)
 
   return (
-    <section className="relative min-h-screen h-screen flex items-center justify-center overflow-hidden py-8 sm:py-0">
+    <section className="relative min-h-screen h-screen flex items-center justify-center overflow-hidden py-8 sm:py-0 hero-mobile-spacing">
       {/* Dual Background: Globe + 3D Logo + Particle Wave */}
       <DualBackground
         showGlobe={false}
@@ -57,7 +57,7 @@ const Hero = () => {
 
         {/* Main Headline with Typewriter Effect */}
         <div className="mb-4 sm:mb-6">
-          <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-display font-semibold leading-tight sm:leading-none">
+          <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-display font-semibold leading-tight sm:leading-none px-2 sm:px-0">
             <TypewriterText
               text="Future-Proof Software. Built Just for You"
               delay={1000}
